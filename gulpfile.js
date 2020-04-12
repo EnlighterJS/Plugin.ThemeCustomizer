@@ -26,6 +26,7 @@ const _header = require('gulp-header');
 const _uglify = require('gulp-uglify');
 const _rollup = require('rollup');
 const _rollup_babel = require('rollup-plugin-babel');
+const _rollup_resolve = require('@rollup/plugin-node-resolve');
 
 // license header prepended to builds
 const licenseHeader = `/*! EnlighterJS Theme Customizer ${_package.version} | Mozilla Public License 2.0 | https://enlighterjs.org */\n`;
@@ -35,6 +36,7 @@ _gulp.task('es6-transpile', async function(){
     const bundle = await _rollup.rollup({
         input: './src/browser/customizer.js',
         plugins: [
+            _rollup_resolve(),
             _rollup_babel()
         ]
     });
@@ -51,10 +53,10 @@ _gulp.task('es6-transpile', async function(){
 _gulp.task('library', _gulp.series('es6-transpile', function(){
 
     // add jquery addon and minify it
-    return _gulp.src(['.tmp/enlighterjs.js', 'src/browser/jquery.js'])
+    return _gulp.src(['.tmp/enlighterjs.js'])
 
         // minify
-        .pipe(_uglify())
+        //.pipe(_uglify())
         .pipe(_concat('enlighterjs-customizer.min.js'))
 
         // add license header
@@ -73,7 +75,9 @@ _gulp.task('webserver', function(){
     webapp.get('/', function(req, res){
         res.sendFile(_path.join(__dirname, 'Development.html'));
     });
+    webapp.use(_express.static(_path.join(__dirname, 'assets')));
     webapp.use(_express.static(_path.join(__dirname, 'dist')));
+    
     webapp.listen(8888, () => _log('DEV Webserver Online - localhost:8888'));
 });
 

@@ -4,3 +4,4 @@ node_modules/*
 .hidden/*
 PublicHtml/*
 Development.html
+assets/*

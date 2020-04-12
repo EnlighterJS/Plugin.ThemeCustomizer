@@ -6,7 +6,11 @@
 // Copyright 2019-2020 Andi Dittrich <https://andidittrich.de>
 // ----------------------------------------------------------------------
 
-import { render as _renderComponent } from '../ui/renderer';
+import {getElement, renderComponent } from 'dom-magic';
+import {FontView} from '../ui/views/fonts.jsx';
+import {TokenView} from '../ui/views/tokens.jsx';
+import {onUpdate, renderStylesheet} from '../css/generator';
+import {parseStylesheet} from '../css/parser';
 
 // static properties
 export const version = '[[VERSION]]';
@@ -14,8 +18,20 @@ export const version = '[[VERSION]]';
 // enlighter a single element/codegroup
 export function init(options={}){
     try {
-       
-        _renderComponent('fonts', options.fonts);
+
+        // render font settings
+        renderComponent(FontView(), getElement(options.fonts));
+
+        // render token settings
+        renderComponent(TokenView(), getElement(options.tokens));
+
+        // handle css updates
+        onUpdate(() => {
+            getElement('#output').textContent = renderStylesheet('xxx');
+        });
+
+
+        parseStylesheet();
 
         // ok
         return true;
@@ -30,6 +46,6 @@ export function init(options={}){
 }
 
 // render the css
-export function render(){
-
+export function render(name=null){
+    return renderStylesheet(name || 'custom');
 }
