@@ -8,21 +8,25 @@
 // Internal "ReactDOM"
 import * as React from 'dom-magic';
 
+import {Component} from '../components/component';
+
 // form
 import {FormColor} from '../forms/color.jsx';
 
-// css generator
-import {updateRules} from '../../css/generator';
-
 // wrap child elements into div container
-export function BackgroundColor(props){
+export class BackgroundColor
+    extends Component{
 
-    function setCSS(v){
-        updateRules(props.selector, {
-            'background-color': v
-        });
+    constructor(props){
+        super(props);
+        this.cssProperty = 'background-color'
     }
 
-    // select element
-    return <FormColor onChange={setCSS} value=''/>;
+    render(){
+        // create stateless dom element
+        this.el = <FormColor onChange={this.onChange.bind(this)} value=''/>;
+
+        // return dom element
+        return this.el;
+    }
 }

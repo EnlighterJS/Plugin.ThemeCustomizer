@@ -9,8 +9,10 @@
 import {getElement, renderComponent } from 'dom-magic';
 import {FontView} from '../ui/views/fonts.jsx';
 import {TokenView} from '../ui/views/tokens.jsx';
-import {onUpdate, renderStylesheet} from '../css/generator';
-import {parseStylesheet} from '../css/parser';
+import {SettingsView} from '../ui/views/settings.jsx';
+import {renderStylesheet} from '../css/generator';
+import {parseRemoteStylesheet} from '../css/parser';
+import {onUpdate, registerBaseThemes} from '../customizer/manager';
 
 // static properties
 export const version = '[[VERSION]]';
@@ -19,23 +21,36 @@ export const version = '[[VERSION]]';
 export function init(options={}){
     try {
 
-        // render font settings
-        renderComponent(FontView(), getElement(options.fonts));
+        // load base styles
+        parseRemoteStylesheet(options.themeURL, (err, rulesets) => {
+            // error occured ?
+            if (err){
+                console.error("failed to load+parse EnlighterJS themes", err);
+                return false;
+            }
 
-        // render token settings
-        renderComponent(TokenView(), getElement(options.tokens));
+            // show info
+            console.log("EnlighterJS themes loaded: ", Object.keys(rulesets).join(', '));
 
-        // handle css updates
-        onUpdate(() => {
-            getElement('#output').textContent = renderStylesheet('xxx');
+            console.log(rulesets);
+
+            // register base themes
+            registerBaseThemes(rulesets);
+
+            // render settings
+            renderComponent((new SettingsView()).render(), getElement(options.settings));
+
+            // render font settings
+            renderComponent(FontView(), getElement(options.fonts));
+
+            // render token settings
+            renderComponent(TokenView(), getElement(options.tokens));
+
+            // handle css updates
+            onUpdate(() => {
+                getElement('#output').textContent = renderStylesheet('xxx');
+            });
         });
-
-
-        parseStylesheet();
-
-        // ok
-        return true;
-        
 
     // Global Error Handling (FATAL ERRORS)
     }catch (err){

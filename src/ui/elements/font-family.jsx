@@ -8,11 +8,10 @@
 // Internal "ReactDOM"
 import * as React from 'dom-magic';
 
+import {Component} from '../components/component';
+
 // form
 import {FormSelect} from '../forms/select.jsx';
-
-// css generator
-import {updateRules} from '../../css/generator';
 
 const _options = [
     {
@@ -21,32 +20,50 @@ const _options = [
     },
     {
         label: "Source Code Pro",
-        value: '"Source Code Pro", "Liberation Mono", "Courier New", Courier, monospace'
+        value: '"Source Code Pro","Liberation Mono","Courier New",Courier,monospace'
     },
     {
         label: "Consolas",
-        value: '"Consolas", "Source Code Pro", "Liberation Mono", "Courier New", Courier, monospace'
+        value: 'Consolas,"Source Code Pro","Liberation Mono","Courier New",Courier,monospace'
     },
     {
         label: "Inconsolata",
-        value: '"Inconsolata", "Consolas", "Source Code Pro", "Liberation Mono", "Courier New", Courier, monospace'
+        value: 'Inconsolata,Consolas,"Source Code Pro","Liberation Mono","Courier New",Courier,monospace'
     },
     {
         label: "Open Sans",
-        value: '"Open Sans", Arial, Verdana, sans-serif'
+        value: '"Open Sans",Arial,Verdana,sans-serif'
+    },
+    {
+        label: "Arial",
+        value: 'Arial,Helvetica,sans-serif'
     }
 ];
 
 
 // wrap child elements into div container
-export function FontFamily(props){
+export class FontFamily
+    extends Component{
 
-    function setCSS(v){
-        updateRules(props.selector, {
-            'font-family': v
-        });
+    constructor(props){
+        super(props);
+        this.cssProperty = 'font-family'
     }
 
-    // select element
-    return <FormSelect options={_options} onChange={setCSS} value=''/>;
+    applyRules(rules){
+        super.applyRules(rules);
+    }
+
+    reset(){
+        this.value=_options[0].value;
+        this.el.value=_options[0].value;
+    }
+
+    render(){
+        // create stateless dom element
+        this.el = <FormSelect options={_options} onChange={this.onChange.bind(this)} value='' />;
+
+        // return dom element
+        return this.el;
+    }
 }

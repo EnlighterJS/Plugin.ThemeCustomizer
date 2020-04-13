@@ -8,21 +8,25 @@
 // Internal "ReactDOM"
 import * as React from 'dom-magic';
 
+import {Component} from '../components/component';
+
 // form
 import {FormInput} from '../forms/input.jsx';
 
-// css generator
-import {updateRules} from '../../css/generator';
-
 // wrap child elements into div container
-export function FontLineHeight(props){
+export class FontLineHeight
+    extends Component{
 
-    function setCSS(v){
-        updateRules(props.selector, {
-            'line-height': v
-        });
+    constructor(props){
+        super(props);
+        this.cssProperty = 'line-height'
     }
 
-    // select element
-    return <FormInput onChange={setCSS} value=''/>;
+    render(){
+        // create stateless dom element
+        this.el = <FormInput onChange={this.onChange.bind(this)} value=''/>;
+
+        // return dom element
+        return this.el;
+    }
 }

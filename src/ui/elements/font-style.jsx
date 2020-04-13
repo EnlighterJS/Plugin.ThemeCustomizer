@@ -8,11 +8,10 @@
 // Internal "ReactDOM"
 import * as React from 'dom-magic';
 
+import {Component} from '../components/component';
+
 // form
 import {FormSelect} from '../forms/select.jsx';
-
-// css generator
-import {updateRules} from '../../css/generator';
 
 const _options = [
     { label: "default", value: "" },
@@ -24,14 +23,24 @@ const _options = [
 ];
 
 // wrap child elements into div container
-export function FontStyle(props){
+export class FontStyle
+    extends Component{
 
-    function setCSS(v){
-        updateRules(props.selector, {
-            'font-style': v
-        });
+    constructor(props){
+        super(props);
+        this.cssProperty = 'font-style'
     }
 
-    // select element
-    return <FormSelect options={_options} onChange={setCSS} value=''/>;
+    reset(){
+        this.value=_options[0].value;
+        this.el.value=_options[0].value;
+    }
+    
+    render(){
+        // create stateless dom element
+        this.el = <FormSelect options={_options} onChange={this.onChange.bind(this)} value=''/>;
+
+        // return dom element
+        return this.el;
+    }
 }

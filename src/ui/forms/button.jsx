@@ -1,3 +1,4 @@
+// ----------------------------------------------------------------------
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -8,25 +9,11 @@
 // Internal "ReactDOM"
 import * as React from 'dom-magic';
 
-import {Component} from '../components/component';
-
-// form
-import {FormColor} from '../forms/color.jsx';
-
 // wrap child elements into div container
-export class FontColor
-    extends Component{
+export function FormButton(props){
 
-    constructor(props){
-        super(props);
-        this.cssProperty = 'color'
-    }
-
-    render(){
-        // create stateless dom element
-        this.el = <FormColor onChange={this.onChange.bind(this)} value=''/>;
-
-        // return dom element
-        return this.el;
-    }
+    // create select element
+    return <button name={props.name} className={props.className} onClick={props.onClick} type="button">
+        {props.label}
+    </button>
 }

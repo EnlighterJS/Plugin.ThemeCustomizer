@@ -2,9 +2,6 @@
 // selector => [] rules
 const _ruleset = {};
 
-// update handler
-const _evtHandlers = [];
-
 // retrieve global _ruleset
 export function getRules(){
     return _ruleset;
@@ -50,15 +47,4 @@ export function updateRules(selector, rules={}){
 
     // merge rules
     Object.assign(_ruleset[selector], rules);
-
-    // call update handler
-    _evtHandlers.forEach((fn) => {
-        fn.apply(fn);
-    });
-}
-
-// register new update handler
-export function onUpdate(fn){
-    // add function to stack
-    _evtHandlers.push(fn);
 }
