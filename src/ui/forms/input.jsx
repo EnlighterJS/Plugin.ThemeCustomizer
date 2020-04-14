@@ -19,7 +19,7 @@ export function FormInput(props){
     };
 
     // create select element
-    el = <input name={props.name} className={props.className} onInput={onChangeEvent} type="text" />
+    el = <input id={props.id} name={props.name} className={props.className} onInput={onChangeEvent} type="text" />
 
     // initial trigger
     if (props.onChange){

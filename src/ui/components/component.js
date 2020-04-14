@@ -11,11 +11,14 @@ import {registerComponent, updateComponent} from '../../customizer/manager'
 export class Component{
     
     constructor(props){
-        this.props = props;
+        this.props = props || {};
         this.selector = props.selector;
         this.el = null;
         this.value = null;
         this.cssProperty = null;
+
+        // UID
+        this.uid = Math.random().toString(36).substr(2, 12);
 
         // register component to manager
         registerComponent(this);

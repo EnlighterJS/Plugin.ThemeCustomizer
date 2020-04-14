@@ -10,8 +10,7 @@
 import * as React from 'dom-magic';
 
 import {Component} from '../components/component';
-
-// form
+import {WPFormWrapper} from '../forms/wp-wrapper.jsx';
 import {FormInput} from '../forms/input.jsx';
 
 // wrap child elements into div container
@@ -21,13 +20,18 @@ export class FontSize
     constructor(props){
         super(props);
         this.cssProperty = 'font-size'
+        this.props.title="Font size";
+        this.props.label="e.g. 1.2em";
+        this.props.description="Set the font size of the element."
     }
 
     render(){
         // create stateless dom element
-        this.el = <FormInput onChange={this.onChange.bind(this)} value={this.value} />;
+        this.el = <FormInput id={this.uid} onChange={this.onChange.bind(this)} value={this.value} />;
 
         // return dom element
-        return this.el;
+        return <WPFormWrapper type="text" uid={this.uid} label={this.props.label} description={this.props.description} title={this.props.title}>
+            {this.el}
+        </WPFormWrapper>;
     }
 }

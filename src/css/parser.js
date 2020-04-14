@@ -85,12 +85,16 @@ export function parseInterchangeableStylesheet(input){
     // base-theme directive found ?
     const m = input.match(/@BASETHEME:(\w+)/);
     const basetheme = (m !== null) ? m[1] : null;
-    
+
     // parse
     const themes = sortThemes(parseStyles(input));
 
+    // get theme names
+    const themeNames = Object.keys(themes);
+
+    // names available ? => valid css ?
     // get first theme
-    const ruleset = themes[Object.keys(themes)[0]];
+    const ruleset = (themeNames.length > 0) ? themes[themeNames[0]] : {};
 
     return {
         theme: basetheme,

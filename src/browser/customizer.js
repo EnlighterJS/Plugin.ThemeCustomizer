@@ -7,27 +7,36 @@
 // ----------------------------------------------------------------------
 
 import {getElement, renderComponent } from 'dom-magic';
-import {FontView} from '../ui/views/fonts.jsx';
-import {TokenView} from '../ui/views/tokens.jsx';
-import {SettingsView} from '../ui/views/settings.jsx';
 import {renderStylesheet} from '../css/merger';
 import {parseRemoteStylesheet} from '../css/parser';
 import {onUpdate, registerBaseThemes, loadCustomizedTheme, applyRulesToComponents} from '../customizer/manager';
+import {FontView} from '../ui/views/fonts.jsx';
+import {SettingsView} from '../ui/views/settings.jsx';
+import {TokenCommentView} from '../ui/views/token-comments.jsx';
+import {TokenExpressionView} from '../ui/views/token-expressions.jsx';
+import {TokenGenericView} from '../ui/views/token-generic.jsx';
+import {TokenKeywordView} from '../ui/views/token-keywords.jsx';
+import {TokenLanguageView} from '../ui/views/token-languages.jsx';
+import {TokenMethodView} from '../ui/views/token-methods.jsx';
+import {TokenNumberView} from '../ui/views/token-numbers.jsx';
+import {TokenStringView} from '../ui/views/token-strings.jsx';
+import {TokenTextView} from '../ui/views/token-text.jsx';
 
 // static properties
 export const version = '[[VERSION]]';
 
 // enlighter a single element/codegroup
 export function init(options={}){
-    try {
 
-        // load base styles
-        parseRemoteStylesheet(options.themeURL, (err, rulesets) => {
-            // error occured ?
-            if (err){
-                console.error("failed to load+parse EnlighterJS themes", err);
-                return false;
-            }
+    // load base styles
+    parseRemoteStylesheet(options.themeURL, (err, rulesets) => {
+        // error occured ?
+        if (err){
+            console.error("failed to load+parse EnlighterJS themes", err);
+            return false;
+        }
+
+        try {
 
             // show info
             console.log("EnlighterJS themes loaded: ", Object.keys(rulesets).join(', '));
@@ -39,13 +48,15 @@ export function init(options={}){
             let customizedRuleset = false;
             if (options.formExchange){
                 console.log("loading customized theme..");
-                const content = getElement(options.formExchange).value;
-                
-                // try to load
-                customizedRuleset = loadCustomizedTheme(content);
+                const el = getElement(options.formExchange);
 
-                if (customizedRuleset === false){
-                    console.log("failed - no rules set");
+                if (el){
+                    // try to load
+                    customizedRuleset = loadCustomizedTheme(el.value);
+
+                    if (customizedRuleset === false){
+                        console.log("failed - no rules set");
+                    }
                 }
             }
 
@@ -56,7 +67,15 @@ export function init(options={}){
             renderComponent(FontView(), getElement(options.fonts));
 
             // render token settings
-            renderComponent(TokenView(), getElement(options.tokens));
+            renderComponent(TokenCommentView(), getElement(options.tokens.comments));
+            renderComponent(TokenExpressionView(), getElement(options.tokens.expressions));
+            renderComponent(TokenGenericView(), getElement(options.tokens.generic));
+            renderComponent(TokenKeywordView(), getElement(options.tokens.keywords));
+            renderComponent(TokenLanguageView(), getElement(options.tokens.languages));
+            renderComponent(TokenMethodView(), getElement(options.tokens.methods));
+            renderComponent(TokenNumberView(), getElement(options.tokens.numbers));
+            renderComponent(TokenStringView(), getElement(options.tokens.strings));
+            renderComponent(TokenTextView(), getElement(options.tokens.text));
 
             // initialize compoenents with loaded values
             if (customizedRuleset){
@@ -70,14 +89,14 @@ export function init(options={}){
             onUpdate(() => {
                 getElement(options.formExchange).textContent = renderStylesheet(options.themeName);
             });
-        });
 
-    // Global Error Handling (FATAL ERRORS)
-    }catch (err){
-        /* eslint no-console: 0 */
-        console.error('EnlighterJS Customizer Internal Error:', err);
-        return false;
-    }
+        // Global Error Handling (FATAL ERRORS)
+        }catch (exc){
+            /* eslint no-console: 0 */
+            console.error('EnlighterJS Customizer Internal Error:', exc);
+            return false;
+        }
+    });
 }
 
 // render the css

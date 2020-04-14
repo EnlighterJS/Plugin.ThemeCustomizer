@@ -10,8 +10,7 @@
 import * as React from 'dom-magic';
 
 import {Component} from '../components/component';
-
-// form
+import {WPFormWrapper} from '../forms/wp-wrapper.jsx';
 import {FormSelect} from '../forms/select.jsx';
 
 const _options = [
@@ -30,6 +29,9 @@ export class FontStyle
     constructor(props){
         super(props);
         this.cssProperty = 'font-style'
+        this.props.title="Font style";
+        this.props.label="";
+        this.props.description="Select the font style of the element."
     }
 
     reset(){
@@ -39,9 +41,11 @@ export class FontStyle
     
     render(){
         // create stateless dom element
-        this.el = <FormSelect options={_options} onChange={this.onChange.bind(this)} value={this.value} />;
+        this.el = <FormSelect id={this.uid} options={_options} onChange={this.onChange.bind(this)} value={this.value} />;
 
         // return dom element
-        return this.el;
+        return <WPFormWrapper type="select" uid={this.uid} label={this.props.label} description={this.props.description} title={this.props.title}>
+            {this.el}
+        </WPFormWrapper>;
     }
 }

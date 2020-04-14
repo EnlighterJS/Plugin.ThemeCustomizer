@@ -128,7 +128,7 @@ export function loadCustomizedTheme(content){
     const stylesheet = parseInterchangeableStylesheet(content);
 
     // rules available ?
-    if (Object.keys(stylesheet.rules).length === 0){
+    if (Object.keys(stylesheet.rules).length === 0 || stylesheet.theme === null){
         return false;
     }
 

@@ -19,7 +19,7 @@ export function FormSelect(props){
     };
 
     // create select element
-    el = <select name={props.name} className={props.className} onChange={onChangeEvent}>
+    el = <select id={props.id} name={props.name} className={props.className} onChange={onChangeEvent}>
         {props.options.map(opt => {
             if (props.value === opt.value){
                 return <option selected="selected" value={opt.value}>{opt.label}</option>

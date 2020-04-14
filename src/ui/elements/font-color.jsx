@@ -10,8 +10,7 @@
 import * as React from 'dom-magic';
 
 import {Component} from '../components/component';
-
-// form
+import {WPFormWrapper} from '../forms/wp-wrapper.jsx';
 import {FormColor} from '../forms/color.jsx';
 
 // wrap child elements into div container
@@ -20,14 +19,19 @@ export class FontColor
 
     constructor(props){
         super(props);
-        this.cssProperty = 'color'
+        this.cssProperty = 'color';
+        this.props.title="Font color";
+        this.props.label="e.g. #c0c0c0";
+        this.props.description="Set the font color of the element."
     }
 
     render(){
         // create stateless dom element
-        this.el = <FormColor onChange={this.onChange.bind(this)} value={this.value} />;
+        this.el = <FormColor id={this.uid} onChange={this.onChange.bind(this)} value={this.value} />;
 
         // return dom element
-        return this.el;
+        return <WPFormWrapper type="text" uid={this.uid} label={this.props.label} description={this.props.description} title={this.props.title}>
+            {this.el}
+        </WPFormWrapper>;
     }
 }

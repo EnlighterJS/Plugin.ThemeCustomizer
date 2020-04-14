@@ -56,8 +56,8 @@ _gulp.task('library', _gulp.series('es6-transpile', function(){
     return _gulp.src(['.tmp/enlighterjs.js'])
 
         // minify
-        //.pipe(_uglify())
-        .pipe(_concat('enlighterjs-customizer.min.js'))
+        .pipe(_uglify())
+        .pipe(_concat('enlighterjs.customizer.min.js'))
 
         // add license header
         .pipe(_header(licenseHeader))

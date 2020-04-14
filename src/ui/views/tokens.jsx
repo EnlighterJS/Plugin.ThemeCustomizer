@@ -9,28 +9,8 @@
 // Internal "ReactDOM"
 import * as React from 'dom-magic';
 
-import {selectors} from '../../customizer/selectors';
+import {Token} from '../components/token.jsx';
 import {Container} from '../components/container.jsx';
-import {Group} from '../components/group.jsx';
-import {FontStyle} from '../elements/font-style.jsx';
-import {FontWeight} from '../elements/font-weight.jsx';
-import {FontColor} from '../elements/font-color.jsx';
-import {FontSize} from '../elements/font-size.jsx';
-import {BackgroundColor} from '../elements/bg-color.jsx';
-
-
-function Token(props){
-    // generator selector
-    const selector = selectors.token + props.type;
-
-    return <Group title={props.name}>
-            <FontStyle selector={selector} />
-            <FontWeight selector={selector} />
-            <FontSize selector={selector} />
-            <FontColor selector={selector} />
-            <BackgroundColor selector={selector} />
-    </Group>
-}
 
 export function TokenView(){
     return <Container className="ejs-customizer-tokens">
