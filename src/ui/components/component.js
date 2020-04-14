@@ -1,3 +1,4 @@
+// ----------------------------------------------------------------------
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -5,7 +6,7 @@
 // Copyright 2019-2020 Andi Dittrich <https://andidittrich.de>
 // ----------------------------------------------------------------------
 
-import {registerComponent, triggerUpdate} from '../../customizer/manager'
+import {registerComponent, updateComponent} from '../../customizer/manager'
 
 export class Component{
     
@@ -16,7 +17,7 @@ export class Component{
         this.value = null;
         this.cssProperty = null;
 
-        // register component
+        // register component to manager
         registerComponent(this);
     }
 
@@ -26,7 +27,7 @@ export class Component{
         this.value = v;
 
         // forward update event
-        triggerUpdate(this.selector, this);
+        updateComponent(this.selector, this);
     }
 
     reset(){

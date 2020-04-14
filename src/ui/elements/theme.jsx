@@ -9,37 +9,40 @@
 // Internal "ReactDOM"
 import * as React from 'dom-magic';
 
-import {Component} from '../components/component';
+import {getBaseThemeList, getBaseTheme} from '../../customizer/manager';
 
 // form
 import {FormSelect} from '../forms/select.jsx';
 
-const _options = [
-    { label: "default", value: "" },
-    { label: "normal", value: "normal" },
-    { label: "italic", value: "italic" },
-    { label: "overline", value: "overline" },
-    { label: "underline", value: "underline" },
-    { label: "line through", value: "line-through" }
-];
-
 // wrap child elements into div container
-export class FontStyle
-    extends Component{
+export class ThemeSelect{
 
+    // eslint-disable-next-line constructor-super
     constructor(props){
-        super(props);
-        this.cssProperty = 'font-style'
+        this.el = null;
+        this.onChange = props.onChange;
     }
 
-    reset(){
-        this.value=_options[0].value;
-        this.el.value=_options[0].value;
+    setValue(v){
+        this.value=v;
+        this.el.value=v;
     }
-    
+
     render(){
+
+        // get theme list
+        const themes = getBaseThemeList();
+
+        // create option list
+        const options = themes.map((t) => {
+            return {
+                'label': t,
+                'value': t
+            } 
+        });
+
         // create stateless dom element
-        this.el = <FormSelect options={_options} onChange={this.onChange.bind(this)} value={this.value} />;
+        this.el = <FormSelect options={options} onChange={this.onChange} value={getBaseTheme()} />;
 
         // return dom element
         return this.el;

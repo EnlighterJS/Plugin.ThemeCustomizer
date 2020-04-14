@@ -21,7 +21,7 @@ export class Group{
 
     render(){
         return <Container>
-            <h3>{this.props.title}</h3>
+            <h4>{this.props.title}</h4>
             {this.children}
         </Container>;
     }

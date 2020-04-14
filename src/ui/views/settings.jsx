@@ -13,45 +13,26 @@ import {Container} from '../components/container.jsx';
 import {Group} from '../components/group.jsx';
 
 // form
-import {FormSelect} from '../forms/select.jsx';
+import {ThemeSelect} from '../elements/theme.jsx';
 import {FormButton} from '../forms/button.jsx';
 
-import {getBaseThemeList, setBaseTheme, loadBaseTheme} from '../../customizer/manager';
+import {setBaseTheme, applyBaseTheme} from '../../customizer/manager';
 
-export class SettingsView{
-
-    constructor(){
-        this.value='enlighter'
-    }
+export function SettingsView(){
 
     // eslint-disable-next-line class-methods-use-this
-    onChange(v){
-        this.value = v;
+    function onChange(v){
         setBaseTheme(v);
     }
 
-    load(){
-        loadBaseTheme(this.value);
+    function load(){
+        applyBaseTheme();
     }
 
-    render(){
-        // get theme list
-        const themes = getBaseThemeList();
-
-        // create option list
-        const options = themes.map((t) => {
-            return {
-                'label': t,
-                'value': t
-            } 
-        });
-
-        return <Container className="ejs-customizer-settings">
-            <Group title="Base theme">
-                <FormSelect options={options} onChange={this.onChange.bind(this)} value={this.value}/>
-                <FormButton label="load base theme" onClick={this.load.bind(this)} />
-            </Group>
-        </Container>;
-    }
-
+    return <Container className="ejs-customizer-settings">
+        <Group title="Base theme">
+            <ThemeSelect onChange={onChange} />
+            <FormButton label="load base theme" onClick={load} />
+        </Group>
+    </Container>;
 }

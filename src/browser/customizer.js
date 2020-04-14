@@ -10,9 +10,9 @@ import {getElement, renderComponent } from 'dom-magic';
 import {FontView} from '../ui/views/fonts.jsx';
 import {TokenView} from '../ui/views/tokens.jsx';
 import {SettingsView} from '../ui/views/settings.jsx';
-import {renderStylesheet} from '../css/generator';
+import {renderStylesheet} from '../css/merger';
 import {parseRemoteStylesheet} from '../css/parser';
-import {onUpdate, registerBaseThemes} from '../customizer/manager';
+import {onUpdate, registerBaseThemes, loadCustomizedTheme, applyRulesToComponents} from '../customizer/manager';
 
 // static properties
 export const version = '[[VERSION]]';
@@ -32,13 +32,25 @@ export function init(options={}){
             // show info
             console.log("EnlighterJS themes loaded: ", Object.keys(rulesets).join(', '));
 
-            console.log(rulesets);
-
-            // register base themes
+            // register+store base themes
             registerBaseThemes(rulesets);
 
+            // try to parse existing theme
+            let customizedRuleset = false;
+            if (options.formExchange){
+                console.log("loading customized theme..");
+                const content = getElement(options.formExchange).value;
+                
+                // try to load
+                customizedRuleset = loadCustomizedTheme(content);
+
+                if (customizedRuleset === false){
+                    console.log("failed - no rules set");
+                }
+            }
+
             // render settings
-            renderComponent((new SettingsView()).render(), getElement(options.settings));
+            renderComponent(SettingsView(), getElement(options.settings));
 
             // render font settings
             renderComponent(FontView(), getElement(options.fonts));
@@ -46,9 +58,17 @@ export function init(options={}){
             // render token settings
             renderComponent(TokenView(), getElement(options.tokens));
 
+            // initialize compoenents with loaded values
+            if (customizedRuleset){
+                applyRulesToComponents(customizedRuleset);
+
+                // trigger update
+                getElement(options.formExchange).textContent = renderStylesheet(options.themeName);
+            }
+            
             // handle css updates
             onUpdate(() => {
-                getElement('#output').textContent = renderStylesheet('xxx');
+                getElement(options.formExchange).textContent = renderStylesheet(options.themeName);
             });
         });
 

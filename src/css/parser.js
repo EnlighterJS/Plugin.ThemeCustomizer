@@ -56,7 +56,7 @@ function sortThemes(rulesets){
     // iterate over ruleset
     for (const ruleset of rulesets){
         // theme related selector ?
-        const m = ruleset.selector.match(/(^|\s)\.enlighter-t-(\w+)($|\s)/);
+        const m = ruleset.selector.match(/(^|\s)\.enlighter-t-(\w+)($|\W)/);
 
         // match found ?
         if (m !== null){
