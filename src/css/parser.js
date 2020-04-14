@@ -1,3 +1,4 @@
+// ----------------------------------------------------------------------
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -31,8 +32,10 @@ function parseStyles(styles){
 
         // process rules
         for (const rule of rawRules){
-            const p2 = rule.split(':');
-            rules[p2[0]] = p2[1];
+            const p2 = rule.trim().split(':');
+            if (p2.length > 1){
+                rules[p2[0].trim()] = p2[1].trim();
+            }            
         }
         
         // wrap into container
@@ -74,6 +77,25 @@ function sortThemes(rulesets){
     }
 
     return themes;
+}
+
+// parse stylesheet
+export function parseInterchangeableStylesheet(input){
+
+    // base-theme directive found ?
+    const m = input.match(/@BASETHEME:(\w+)/);
+    const basetheme = (m !== null) ? m[1] : null;
+    
+    // parse
+    const themes = sortThemes(parseStyles(input));
+
+    // get first theme
+    const ruleset = themes[Object.keys(themes)[0]];
+
+    return {
+        theme: basetheme,
+        rules: ruleset
+    };
 }
 
 // load and parse stylesheet
