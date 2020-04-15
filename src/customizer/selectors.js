@@ -13,6 +13,10 @@ export const selectors = {
 
     linenumbers: '.enlighter-t-${THEME_NAME}.enlighter-linenumbers div.enlighter>div::before',
 
+    linehover: '.enlighter-t-${THEME_NAME}.enlighter-hover div.enlighter>div:hover',
+    linespecial: '.enlighter-t-${THEME_NAME} div.enlighter>div.enlighter-special',
+    linespecialhover: '.enlighter-t-${THEME_NAME} .enlighter-special:hover',
+
     buttons: {
         generic: '.enlighter-t-${THEME_NAME} .enlighter-btn',
         codegroup: '.enlighter-t-${THEME_NAME}.enlighter-v-codegroup .enlighter-codegroup-switch .enlighter-btn'

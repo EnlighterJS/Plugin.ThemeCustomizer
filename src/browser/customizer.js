@@ -11,6 +11,7 @@ import {renderStylesheet} from '../css/merger';
 import {parseRemoteStylesheet} from '../css/parser';
 import {onUpdate, registerBaseThemes, loadCustomizedTheme, applyRulesToComponents} from '../customizer/manager';
 import {FontView} from '../ui/views/fonts.jsx';
+import {LineView} from '../ui/views/lines.jsx';
 import {SettingsView} from '../ui/views/settings.jsx';
 import {TokenCommentView} from '../ui/views/token-comments.jsx';
 import {TokenExpressionView} from '../ui/views/token-expressions.jsx';
@@ -65,6 +66,9 @@ export function init(options={}){
 
             // render font settings
             renderComponent(FontView(), getElement(options.fonts));
+
+            // render line settings
+            renderComponent(LineView(), getElement(options.lines));
 
             // render token settings
             renderComponent(TokenCommentView(), getElement(options.tokens.comments));
