@@ -8,6 +8,34 @@
 
 import {getWindow} from 'dom-magic';
 
+function getRules(block){
+
+    // ends with ; ?
+    if (block.substr(-1) !== ';'){
+        block += ';';
+    }
+
+    const regex = /;/g;
+    let match;
+    const matches = [];
+    let index = 0;
+
+    // find ALL possible matches
+    while ((match = regex.exec(block)) != null){
+
+        // extract string
+        const s = block.substring(index, match.index);
+
+        // regex lookbehind workaround...
+        if (s.match(/image\/\w+(?:\+\w+)?\s*$/) === null){
+            matches.push(s);
+            index = match.index+1;
+        }
+    }
+
+    return matches;
+}
+
 // Note: this is a minimalistic css parser which didn't take care of a lot of edge cases
 // it just works in for of enlighterjs themes!
 function parseStyles(styles){
@@ -24,20 +52,23 @@ function parseStyles(styles){
     // extract selectors
     const rulesets = blocks.map(b => {
         const parts = b.split('{');
+
         const selector = parts[0].trim();
-        const rawRules = parts[1].split(';');
+
+        // split into property:value
+        const rawRules = getRules(parts[1].trim());
 
         // rules cache
         const rules = {};
 
         // process rules
         for (const rule of rawRules){
-            const p2 = rule.trim().split(':');
-            if (p2.length > 1){
-                rules[p2[0].trim()] = p2[1].trim();
-            }            
+            const match = rule.match(/^\s*([a-z-]+)\s*:\s*(.+)\s*$/);
+            if (match){
+                rules[match[1]] = match[2];
+            }
         }
-        
+
         // wrap into container
         return {
             selector: selector,

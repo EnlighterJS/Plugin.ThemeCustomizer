@@ -17,11 +17,8 @@ const _gulp = require('gulp');
 const _express = require('express');
 const _log = require('fancy-log');
 
-const _gulp_less = require('gulp-less');
 const _gulp_replace = require('gulp-replace');
-const _prettyError = require('gulp-prettyerror');
 const _concat = require('gulp-concat');
-const _gulp_cleancss = require('gulp-clean-css');
 const _header = require('gulp-header');
 const _uglify = require('gulp-uglify');
 const _rollup = require('rollup');
