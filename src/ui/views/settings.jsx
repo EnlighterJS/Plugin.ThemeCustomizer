@@ -11,11 +11,8 @@ import * as React from 'dom-magic';
 
 import {Container} from '../components/container.jsx';
 import {Group} from '../components/group.jsx';
-
-// form
-import {ThemeSelect} from '../elements/theme.jsx';
-import {FormButton} from '../forms/button.jsx';
-
+import {ThemeSelect} from '../elements/theme-base.jsx';
+import {ThemeLoadButton} from '../elements/theme-load.jsx';
 import {setBaseTheme, applyBaseTheme} from '../../customizer/manager';
 
 export function SettingsView(){
@@ -32,7 +29,7 @@ export function SettingsView(){
     return <Container className="ejs-customizer-settings">
         <Group title="Base theme">
             <ThemeSelect onChange={onChange} />
-            <FormButton label="load base theme" onClick={load} />
+            <ThemeLoadButton onClick={load} />
         </Group>
     </Container>;
 }

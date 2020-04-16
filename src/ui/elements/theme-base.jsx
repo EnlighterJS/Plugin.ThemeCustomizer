@@ -10,8 +10,7 @@
 import * as React from 'dom-magic';
 
 import {getBaseThemeList, getBaseTheme} from '../../customizer/manager';
-
-// form
+import {WPFormWrapper} from '../forms/wp-wrapper.jsx';
 import {FormSelect} from '../forms/select.jsx';
 
 // wrap child elements into div container
@@ -21,6 +20,11 @@ export class ThemeSelect{
     constructor(props){
         this.el = null;
         this.onChange = props.onChange;
+        this.props = props || {};
+        this.uid="4khwf0923g";
+        this.props.title="Base theme";
+        this.props.label="";
+        this.props.description="Select the theme which should used for derivation. The theme customizer will use the styles of this theme."
     }
 
     setValue(v){
@@ -42,9 +46,11 @@ export class ThemeSelect{
         });
 
         // create stateless dom element
-        this.el = <FormSelect options={options} onChange={this.onChange} value={getBaseTheme()} />;
+        this.el = <FormSelect id={this.uid} options={options} onChange={this.onChange} value={getBaseTheme()} />;
 
         // return dom element
-        return this.el;
+        return <WPFormWrapper type="select" uid={this.uid} label={this.props.label} description={this.props.description} title={this.props.title}>
+            {this.el}
+        </WPFormWrapper>;
     }
 }

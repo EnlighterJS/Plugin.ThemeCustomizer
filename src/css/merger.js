@@ -33,12 +33,17 @@ export function renderStylesheet(name){
         }
 
         // merge style
-        // properties can be empty (not set by customizer)
+        // properties can be empty (not set by customizer) => reset them
         for (const prop in componentRuleset[selector]){
+            // get value
             const value = componentRuleset[selector][prop];
+
             // value set ?
-            if (value.length > 0){
+            if (value && value.length > 0){
                 ruleset[selector][prop] = value;
+            }else{
+                // reset
+                ruleset[selector][prop] = '';
             }
         }
     }
