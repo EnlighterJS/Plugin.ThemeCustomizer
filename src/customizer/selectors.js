@@ -15,7 +15,7 @@ export const selectors = {
 
     linehover: '.enlighter-t-${THEME_NAME}.enlighter-hover div.enlighter>div:hover',
     linespecial: '.enlighter-t-${THEME_NAME} div.enlighter>div.enlighter-special',
-    linespecialhover: '.enlighter-t-${THEME_NAME} .enlighter-special:hover',
+    linespecialhover: '.enlighter-t-${THEME_NAME} div.enlighter>div.enlighter-special:hover',
 
     buttons: {
         generic: '.enlighter-t-${THEME_NAME} .enlighter-btn',
