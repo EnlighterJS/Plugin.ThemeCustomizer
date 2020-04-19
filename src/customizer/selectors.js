@@ -22,5 +22,7 @@ export const selectors = {
         codegroup: '.enlighter-t-${THEME_NAME}.enlighter-v-codegroup .enlighter-codegroup-switch .enlighter-btn'
     },
 
-    token: '.enlighter-t-${THEME_NAME} .enlighter-'
+    token: '.enlighter-t-${THEME_NAME} .enlighter-',
+
+    genericToken: '.enlighter-t-${THEME_NAME} .enlighter span'
 }

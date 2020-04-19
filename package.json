@@ -1,7 +1,7 @@
 {
     "name": "enlighterjs-theme-customizer",
     "description": "an open source syntax highlighter written in pure javascript",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "private": true,
     "homepage": "https://enlighterjs.org",
     "author": {
