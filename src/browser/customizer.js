@@ -10,8 +10,10 @@ import {getElement, renderComponent } from 'dom-magic';
 import {renderStylesheet} from '../css/merger';
 import {parseRemoteStylesheet} from '../css/parser';
 import {onUpdate, registerBaseThemes, loadCustomizedTheme, applyRulesToComponents} from '../customizer/manager';
-import {FontView} from '../ui/views/fonts.jsx';
+import {DefaultsView} from '../ui/views/defaults.jsx';
 import {LineView} from '../ui/views/lines.jsx';
+import {RawView} from '../ui/views/rawcode.jsx';
+import {ButtonView} from '../ui/views/buttons.jsx';
 import {SettingsView} from '../ui/views/settings.jsx';
 import {TokenCommentView} from '../ui/views/token-comments.jsx';
 import {TokenExpressionView} from '../ui/views/token-expressions.jsx';
@@ -64,11 +66,17 @@ export function init(options={}){
             // render settings
             renderComponent(SettingsView(), getElement(options.settings));
 
-            // render font settings
-            renderComponent(FontView(), getElement(options.fonts));
+            // render default settings
+            renderComponent(DefaultsView(), getElement(options.defaults));
 
             // render line settings
             renderComponent(LineView(), getElement(options.lines));
+
+            // render rawcode settings
+            renderComponent(RawView(), getElement(options.rawcode));
+
+            // render button settings
+            renderComponent(ButtonView(), getElement(options.buttons));
 
             // render token settings
             renderComponent(TokenCommentView(), getElement(options.tokens.comments));

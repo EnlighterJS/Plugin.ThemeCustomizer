@@ -22,7 +22,10 @@ export const selectors = {
         codegroup: '.enlighter-t-${THEME_NAME}.enlighter-v-codegroup .enlighter-codegroup-switch .enlighter-btn'
     },
 
-    token: '.enlighter-t-${THEME_NAME} .enlighter-',
+    tokens: {
+        prefix: '.enlighter-t-${THEME_NAME} .enlighter-',
+        all:  '.enlighter-t-${THEME_NAME} .enlighter span'
+    },
 
-    genericToken: '.enlighter-t-${THEME_NAME} .enlighter span'
+    rawcode: '.enlighter-t-${THEME_NAME} .enlighter-raw'
 }

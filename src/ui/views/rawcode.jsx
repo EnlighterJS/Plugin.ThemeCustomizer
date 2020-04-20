@@ -10,23 +10,28 @@
 import * as React from 'dom-magic';
 
 import {selectors} from '../../customizer/selectors';
+import {Container} from '../components/container.jsx';
 import {Group} from '../components/group.jsx';
+import {FontFamily} from '../elements/font-family.jsx';
 import {FontStyle} from '../elements/font-style.jsx';
 import {FontWeight} from '../elements/font-weight.jsx';
 import {FontColor} from '../elements/font-color.jsx';
 import {FontSize} from '../elements/font-size.jsx';
 import {BackgroundColor} from '../elements/bg-color.jsx';
+import {FontLineHeight} from '../elements/font-lineheight.jsx';
 
+export function RawView(){
+    return <Container className="ejs-customizer-rawcode">
+        <Group title="RAW Code">
+            <FontFamily selector={selectors.rawcode} />
+            <FontSize selector={selectors.rawcode} />
+            <FontLineHeight selector={selectors.rawcode} />
 
-export function Token(props){
-    // generator selector
-    const selector = selectors.tokens.prefix + props.type;
-
-    return <Group title={props.name}>
-            <FontStyle selector={selector} />
-            <FontWeight selector={selector} />
-            <FontSize selector={selector} />
-            <FontColor selector={selector} />
-            <BackgroundColor selector={selector} />
-    </Group>
+            <FontStyle selector={selectors.rawcode} />
+            <FontWeight selector={selectors.rawcode} />
+           
+            <FontColor selector={selectors.rawcode} />
+            <BackgroundColor selector={selectors.rawcode} />
+        </Group>
+    </Container>;
 }
