@@ -1844,10 +1844,10 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-dom-magic@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/dom-magic/-/dom-magic-1.0.0.tgz#708b689f8d7d82bfd5d74ef9ab373648da7870d8"
-  integrity sha512-e4DRdc2nUxvi1SUTQQi9BcV0mPm4ooI2eRwuFrDoUIfAIqrwJJh+cddO6pGztyMb7nr3Mub1m0qEXM97vQUOaA==
+dom-magic@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/dom-magic/-/dom-magic-1.1.0.tgz#c83fb36ac0bd6753cae8ffd370f70e987ea646ec"
+  integrity sha512-GCWjIdYEwEcvXc4sEAYWd1qjFwRkO3ZNLHF5Y5yxKqy7QXILq+o6SsrdMWjQJN6AZbyXjCHvvqKlnVaRtC5r3g==
 
 duplexify@^3.6.0:
   version "3.7.1"

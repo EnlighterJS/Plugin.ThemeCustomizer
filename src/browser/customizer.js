@@ -6,7 +6,7 @@
 // Copyright 2019-2020 Andi Dittrich <https://andidittrich.de>
 // ----------------------------------------------------------------------
 
-import {getElement, renderComponent } from 'dom-magic';
+import {getElement, renderComponent, logError, logInfo} from 'dom-magic';
 import {renderStylesheet} from '../css/merger';
 import {parseRemoteStylesheet} from '../css/parser';
 import {onUpdate, registerBaseThemes, loadCustomizedTheme, applyRulesToComponents} from '../customizer/manager';
@@ -35,14 +35,14 @@ export function init(options={}){
     parseRemoteStylesheet(options.themeURL, (err, rulesets) => {
         // error occured ?
         if (err){
-            console.error("failed to load+parse EnlighterJS themes", err);
+            logError("failed to load+parse EnlighterJS themes", err);
             return false;
         }
 
         try {
 
             // show info
-            console.log("EnlighterJS themes loaded: ", Object.keys(rulesets).join(', '));
+            logInfo("EnlighterJS themes loaded: ", Object.keys(rulesets).join(', '));
 
             // register+store base themes
             registerBaseThemes(rulesets);
@@ -50,7 +50,7 @@ export function init(options={}){
             // try to parse existing theme
             let customizedRuleset = false;
             if (options.formExchange){
-                console.log("loading customized theme..");
+                logInfo("loading customized theme..");
                 const el = getElement(options.formExchange);
 
                 if (el){
@@ -58,7 +58,7 @@ export function init(options={}){
                     customizedRuleset = loadCustomizedTheme(el.value);
 
                     if (customizedRuleset === false){
-                        console.log("failed - no rules set");
+                        logInfo("failed - no rules set");
                     }
                 }
             }
@@ -104,8 +104,7 @@ export function init(options={}){
 
         // Global Error Handling (FATAL ERRORS)
         }catch (exc){
-            /* eslint no-console: 0 */
-            console.error('EnlighterJS Customizer Internal Error:', exc);
+            logError('EnlighterJS Customizer Internal Error:', exc);
             return false;
         }
     });

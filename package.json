@@ -49,6 +49,6 @@
         "uglify-js": "~3.9.0"
     },
     "dependencies": {
-        "dom-magic": "^1.0.0"
+        "dom-magic": "^1.1.0"
     }
 }
