@@ -1,5 +1,9 @@
 ## Branch 2.X ##
 
+### 2.3.0 ###
+
+* Added: css element selector token `x16`
+
 ### 2.2.0 ###
 
 * Added: option to customize the raw code pane

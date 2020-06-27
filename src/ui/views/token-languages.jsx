@@ -23,6 +23,7 @@ export function TokenLanguageView(){
         <Token type="x13" name="CSS Units" />
         <Token type="x14" name="CSS Hex Colors" />
         <Token type="x15" name="CSS Pseudo Elements/Selectors" />
+        <Token type="x16" name="CSS Element Selector" />
 
     </Container>;
 }
