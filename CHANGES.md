@@ -3,6 +3,7 @@
 ### 2.3.0 ###
 
 * Added: css element selector token `x16`
+* Added: annotation token `k11`
 
 ### 2.2.0 ###
 

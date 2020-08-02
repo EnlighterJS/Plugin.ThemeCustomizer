@@ -26,6 +26,7 @@ export function TokenKeywordView(){
         <Token type="k8" name="Type Qualifiers/Modifier" />
         <Token type="k9" name="Special Keywords" />
         <Token type="k10" name="Namespaces" />
+        <Token type="k11" name="Annotations" />
 
     </Container>;
 }
